@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Consilio Network - Posts</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" />
+
+    <style>
+        /* CSS is namespaced to prevent conflicts */
+        .post-page {
+            font-family: 'Forum', sans-serif;
+        }
+
+        .forum-regular {
+            font-family: "Forum", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .post-page .h2,
+        .post-page .profile-name {
+            font-family: 'Forum', sans-serif;
+        }
+
+        /* Custom font for ConsilioBook */
+        .post-page .navbar-brand {
+            font-family: 'Pacifico';
+        }
+
+        .post-page .wrapper {
+            display: flex;
+        }
+
+        .post-page .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            border-right: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .post-page .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-page .profile-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-page .profile-info {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-page .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            color: #495057;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .post-page .sidebar-links a i {
+            margin-right: 0.75rem;
+            color: #888;
+        }
+
+        .post-page .sidebar-links a:hover {
+            background-color: #e9ecef;
+            color: #000;
+        }
+
+        .post-page .sidebar-links .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .post-page .sidebar-links .active i {
+            color: #fff;
+        }
+
+        /* Settings submenu */
+        .post-page .settings-submenu {
+            display: none;
+            margin-left: 25px;
+            margin-top: 5px;
+            flex-direction: column;
+        }
+
+        .post-page .settings-submenu a,
+        .post-page .settings-submenu .notification-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #333;
+            font-size: 0.9rem;
+            padding: 5px 0;
+            text-decoration: none;
+        }
+
+        .post-page .settings-submenu a:hover {
+            color: #007bff;
+        }
+
+        /* Title box */
+        .post-page .title-box {
+            background: #ffffff;
+            padding: 2.5rem 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Post styles */
+        .post-page .post-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .post-page .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .post-page .post-avatar {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+        }
+
+        .post-page .post-comments .comment {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 0.75rem 1rem;
+            margin-top: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .post-page .new-post-form {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .post-page .submitBtn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-right: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .post-page .submitBtn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Notification icon badge */
+        .post-page .notification-icon {
+            position: relative;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .post-page .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: red;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 5px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body class="post-page bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="text-center mb-4">
+                <h4 class="fw-bold" style="font-family: 'Pacifico'; color: #007bff;">
+                    <i class="fas fa-book me-2"></i>ConsilioBook
+                </h4>
+            </div>
+            <div class="d-flex align-items-center">
+                <!-- Notification Icon -->
+                <div class="notification-icon me-3" id="notificationIcon">
+                    <i class="fas fa-bell text-primary"></i>
+                    <span class="notification-badge" id="notificationCount">3</span>
+                </div>
+                <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-color="dark">
+                    <i class="fas fa-plus me-1"></i> New Post
+                </button>
+                <a class="btn btn-danger" href="#" role="button" data-mdb-ripple-color="light">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <aside class="sidebar" id="profileSidebar">
+            <img src="" alt="User Avatar" class="profile-image" id="profileImage" />
+            <div class="profile-name" id="profileName">Loading...</div>
+
+            <nav class="sidebar-links">
+                <a href="index.html"><i class="fas fa-house"></i> Home</a>
+                <a href="post.html" class="active"><i class="fas fa-newspaper"></i> Posts</a>
+                <a href="album.html"><i class="fas fa-image"></i> Albums</a>
+                <a href="#picturesPage"><i class="fas fa-camera"></i> Pictures</a>
+
+                <!-- Settings main link -->
+                <a href="javascript:void(0);" id="settingsLink"><i class="fas fa-cog"></i> Settings</a>
+                <!-- Settings submenu -->
+                <div class="settings-submenu" id="settingsSubmenu">
+                    <div class="notification-toggle">
+                        <span><i class="fas fa-bell"></i> Notifications</span>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="notificationsSwitch" checked>
+                        </div>
+                    </div>
+                    <a href="#changePassword"><i class="fas fa-key"></i> Change Password</a>
+                    <a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="container-fluid py-5" style="max-width: 1400px;">
+            <div class="text-center mb-5">
+                <div class="title-box">
+                    <h1 class="h2 fw-bold text-dark mb-2">Your Posts</h1>
+                    <p class="text-muted lead">Share your thoughts and connect with others.</p>
+                </div>
+            </div>
+
+            <div style="max-width: 600px; margin: 0 auto;">
+                <!-- New post form -->
+                <div class="new-post-form" id="newPostForm">
+                    <textarea id="newPostContent" class="form-control border-0" rows="1"
+                        placeholder="What's on your mind?" style="resize: none; box-shadow: none;"></textarea>
+                    <div id="postFormButtons" class="d-flex justify-content-end mt-3" style="display:none;">
+                        <button id="submitPostBtn" class="submitBtn">Post</button>
+                        <button id="cancelPostBtn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+
+                <div id="postsList"></div>
+                <div id="loader" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+    <script>
+        const postsList = document.getElementById('postsList');
+        const loader = document.getElementById('loader');
+
+        // Profile elements
+        const profileImage = document.getElementById('profileImage');
+        const profileName = document.getElementById('profileName');
+
+        // New post form elements
+        const newPostContent = document.getElementById('newPostContent');
+        const postFormButtons = document.getElementById('postFormButtons');
+        const submitPostBtn = document.getElementById('submitPostBtn');
+        const cancelPostBtn = document.getElementById('cancelPostBtn');
+
+        // Notifications
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationCount = document.getElementById('notificationCount');
+
+        notificationIcon.addEventListener('click', () => {
+            alert("You have " + notificationCount.innerText + " notifications!");
+        });
+
+        // Settings toggle
+        const settingsLink = document.getElementById('settingsLink');
+        const settingsSubmenu = document.getElementById('settingsSubmenu');
+        const notificationsSwitch = document.getElementById('notificationsSwitch');
+
+        settingsLink.addEventListener('click', () => {
+            settingsSubmenu.style.display =
+                settingsSubmenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        notificationsSwitch.addEventListener('change', () => {
+            if (notificationsSwitch.checked) {
+                alert("Notifications turned ON");
+            } else {
+                alert("Notifications turned OFF");
+            }
+        });
+
+        let posts = [], users = {}, commentsByPost = {}, page = 0, perPage = 10, loading = false, allLoaded = false;
+
+        // Replace with the user ID of the logged-in user
+        const loggedInUserId = 1; // This would be dynamic in a real app
+
+        async function fetchUsers() {
+            try {
+                const res = await fetch('https://jsonplaceholder.typicode.com/users');
+                const data = await res.json();
+                data.forEach(u => users[u.id] = u);
+
+                // Show profile info for logged-in user (userId = 1)
+                const user = users[loggedInUserId];
+                if (user) {
+                    profileName.textContent = user.name;
+                    profileImage.src = `https://i.pravatar.cc/150?img=${user.id}`;
+                    profileImage.alt = user.name;
+                }
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                profileName.textContent = "Error loading profile";
+            }
+        }
+
+        function randomDate(start, end) {
+            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        }
+
+        function getInitials(name) {
+            const parts = name.split(' ');
+            return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Fetch comments for a list of post IDs
+        async function fetchCommentsForPosts(postIds) {
+            const promises = postIds.map(id =>
+                fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
+                    .then(res => res.json())
+                    .then(data => commentsByPost[id] = data)
+            );
+            await Promise.all(promises);
+        }
+
+        async function fetchPosts() {
+            if (loading || allLoaded) return;
+            loading = true;
+            loader.style.display = 'block';
+
+            try {
+                // Fetch posts for the logged-in user (filtered by userId)
+                const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=${page * perPage}&_limit=${perPage}&userId=${loggedInUserId}`);
+                const data = await res.json();
+
+                if (!data.length) {
+                    allLoaded = true;
+                    loading = false;
+                    loader.style.display = 'none';
+                    return;
+                }
+
+                data.forEach(p => p.uploadDate = randomDate(new Date(2022, 0, 1), new Date()));
+                posts = posts.concat(data);
+                posts.sort((a, b) => b.uploadDate - a.uploadDate);
+                page++;
+
+                // Fetch comments for the newly fetched posts
+                const newPostIds = data.map(p => p.id);
+                await fetchCommentsForPosts(newPostIds);
+
+                renderPosts();
+                loading = false;
+                loader.style.display = allLoaded ? 'none' : 'block';
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+                loading = false;
+                loader.style.display = 'none';
+            }
+        }
+
+        function createCard(p) {
+            const user = users[p.userId] || { name: 'User' };
+            const initials = getInitials(user.name);
+            const dateStr = p.uploadDate.toLocaleDateString();
+
+            const comments = commentsByPost[p.id] || [];
+
+            let commentsHtml = '';
+            if (comments.length) {
+                commentsHtml = comments.slice(0, 2).map(c => `
+          <div class="comment">
+            <strong>${escapeHtml(c.name)}:</strong> ${escapeHtml(c.body)}
+          </div>
+        `).join('');
+            }
+
+            const card = document.createElement('div');
+            card.className = 'post-card';
+            card.innerHTML = `
+        <div class="post-header d-flex align-items-center mb-3">
+          <div class="post-avatar rounded-circle text-white d-flex justify-content-center align-items-center"
+            style="width: 50px; height: 50px; font-weight: 700; font-size: 1.25rem;">
+            ${initials}
+          </div>
+          <div class="post-author ms-3">
+            <strong>${user.name}</strong>
+            <div><small class="text-muted">${dateStr}</small></div>
+          </div>
+        </div>
+        <div class="post-body mb-3">
+          <p class="mb-0">${escapeHtml(p.body)}</p>
+        </div>
+        <div class="post-comments">${commentsHtml}</div>
+        ${comments.length > 2 ? '<button class="btn btn-link btn-sm p-0 mt-2">View More Comments</button>' : ''}
+      `;
+
+            return card;
+        }
+
+        function renderPosts() {
+            postsList.innerHTML = '';
+            posts.forEach(p => {
+                const postCard = createCard(p);
+                postsList.appendChild(postCard);
+            });
+        }
+
+        // Handle the new post form buttons (show/hide)
+        newPostContent.addEventListener('focus', () => {
+            postFormButtons.style.display = 'flex';
+            newPostContent.rows = 3;
+        });
+
+        newPostContent.addEventListener('input', () => {
+            // Auto-resize textarea
+            newPostContent.style.height = 'auto';
+            newPostContent.style.height = newPostContent.scrollHeight + 'px';
+        });
+
+        cancelPostBtn.addEventListener('click', () => {
+            newPostContent.value = '';
+            newPostContent.rows = 1;
+            newPostContent.style.height = 'auto';
+            postFormButtons.style.display = 'none';
+        });
+
+        submitPostBtn.addEventListener('click', () => {
+            const postContent = newPostContent.value.trim();
+            if (postContent) {
+                // Simulate posting a new post
+                const newPost = {
+                    id: Date.now(), // Use timestamp as ID
+                    userId: loggedInUserId,
+                    title: '', // Posts from API don't have titles in this context
+                    body: postContent,
+                    uploadDate: new Date()
+                };
+                posts.unshift(newPost);
+                commentsByPost[newPost.id] = []; // Initialize empty comments
+                renderPosts();
+                newPostContent.value = '';
+                newPostContent.rows = 1;
+                newPostContent.style.height = 'auto';
+                postFormButtons.style.display = 'none';
+            }
+        });
+
+        // Load posts on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUsers();
+            fetchPosts();
+        });
+
+        // Infinite scroll (optional)
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+                fetchPosts();
+            }
+        });
+    </script>
+</body>
+
+</html>

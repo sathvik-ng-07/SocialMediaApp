@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Consilio Network - Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" />
+
+  <style>
+    /* CSS is namespaced to prevent conflicts */
+    .index-page {
+      font-family: 'Forum', sans-serif;
+    }
+
+    .forum-regular {
+      font-family: "Forum", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .index-page .h2,
+    .index-page .profile-name {
+      font-family: 'Forum', sans-serif;
+    }
+
+    /* Custom font for ConsilioBook */
+    .index-page .navbar-brand {
+      font-family: 'Pacifico';
+      color: #0056b3;
+    }
+
+    .index-page .wrapper {
+      display: flex;
+    }
+
+    .index-page .sidebar {
+      width: 250px;
+      background-color: #f8f9fa;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      border-right: 1px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .index-page .profile-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #007bff;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .index-page .profile-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .index-page .profile-info {
+      font-size: 0.875rem;
+      color: #6c757d;
+      margin-bottom: 1.5rem;
+    }
+
+    .index-page .sidebar-links a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      color: #495057;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .index-page .sidebar-links a i {
+      margin-right: 0.75rem;
+      color: #888;
+    }
+
+    .index-page .sidebar-links a:hover {
+      background-color: #e9ecef;
+      color: #000;
+    }
+
+    .index-page .sidebar-links .active {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .index-page .sidebar-links .active i {
+      color: #fff;
+    }
+
+    /* Settings submenu */
+    .index-page .settings-submenu {
+      display: none;
+      margin-left: 25px;
+      margin-top: 5px;
+      flex-direction: column;
+    }
+
+    .index-page .settings-submenu a,
+    .index-page .settings-submenu .notification-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #333;
+      font-size: 0.9rem;
+      padding: 5px 0;
+      text-decoration: none;
+    }
+
+    .index-page .settings-submenu a:hover {
+      color: #007bff;
+    }
+
+    /* Title box */
+    .index-page .title-box {
+      background: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0e0e0;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Post styles */
+    .index-page .post-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0e0e0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .index-page .post-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .index-page .post-avatar {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+    }
+
+    .index-page .post-comments .comment {
+      background: #f8f9fa;
+      border-left: 4px solid #007bff;
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .index-page .new-post-form {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0e0e0;
+    }
+
+    .index-page .submitBtn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      margin-right: 0.5rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .index-page .submitBtn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Notification icon badge */
+    .index-page .notification-icon {
+      position: relative;
+      margin-right: 15px;
+      font-size: 1.2rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .index-page .notification-badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: red;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 5px;
+      border-radius: 50%;
+    }
+
+    /* Post action buttons */
+    .index-page .post-actions .btn {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .index-page .post-actions .like-btn i.fa-heart {
+      color: #999;
+      transition: color 0.3s ease;
+    }
+
+    .index-page .post-actions .like-btn.liked i.fa-heart {
+      color: #dc3545;
+    }
+
+    /* Comment input container */
+    .index-page .comment-input-container {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body class="index-page bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid px-4 px-lg-5">
+      <a class="navbar-brand fw-bold fs-4 text d-flex align-items-center" href="#">
+        <i class="fas fa-book me-2 text-primary"></i>
+        ConsilioBook
+      </a>
+      <div class="d-flex align-items-center">
+        <!-- Notification Icon -->
+        <div class="notification-icon me-3" id="notificationIcon">
+          <i class="fas fa-bell text-primary"></i>
+          <span class="notification-badge" id="notificationCount">3</span>
+        </div>
+        <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-color="dark">
+          <i class="fas fa-plus me-1"></i> New Post
+        </button>
+        <a class="btn btn-danger" href="#" role="button" data-mdb-ripple-color="light">
+          <i class="fas fa-sign-out-alt me-1"></i> Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrapper">
+    <aside class="sidebar" id="profileSidebar">
+      <!-- <div class="text-center mb-4">
+        <h4 class="fw-bold" style="font-family: 'Pacifico'; color: #007bff;">
+          <i class="fas fa-book me-2"></i>ConsilioBook
+        </h4>
+      </div> -->
+
+      <img src="" alt="User Avatar" class="profile-image" id="profileImage" />
+      <div class="profile-name" id="profileName">Loading...</div>
+      <!-- <div class="profile-info" id="profileDetails">Please wait</div> -->
+
+      <nav class="sidebar-links">
+        <a href="index.html" class="active"><i class="fas fa-house"></i> Home</a>
+        <a href="post.html"><i class="fas fa-newspaper"></i> Posts</a>
+        <a href="album.html"><i class="fas fa-image"></i> Albums</a>
+        <a href="#picturesPage"><i class="fas fa-camera"></i> Pictures</a>
+
+        <!-- Settings main link -->
+        <a href="javascript:void(0);" id="settingsLink"><i class="fas fa-cog"></i> Settings</a>
+        <!-- Settings submenu -->
+        <div class="settings-submenu" id="settingsSubmenu">
+          <div class="notification-toggle">
+            <span><i class="fas fa-bell"></i> Notifications</span>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="notificationsSwitch" checked>
+            </div>
+          </div>
+          <a href="#changePassword"><i class="fas fa-key"></i> Change Password</a>
+          <a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="container-fluid py-5" style="max-width: 1400px;">
+      <div class="text-center mb-5">
+        <div class="title-box">
+          <h1 class="h2 fw-bold text-dark mb-2">Latest Posts</h1>
+          <p class="text-muted lead">Discover what's happening in your network.</p>
+        </div>
+      </div>
+
+      <div style="max-width: 600px; margin: 0 auto;">
+        <!-- New post form -->
+        <div class="new-post-form" id="newPostForm">
+          <textarea id="newPostContent" class="form-control border-0" rows="1" placeholder="What's on your mind?"
+            style="resize: none; box-shadow: none;"></textarea>
+          <div id="postFormButtons" class="d-flex justify-content-end mt-3" style="display:none;">
+            <button id="submitPostBtn" class="submitBtn">Post</button>
+            <button id="cancelPostBtn" class="btn btn-secondary">Cancel</button>
+          </div>
+        </div>
+
+        <div id="postsList"></div>
+        <div id="loader" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+  <script>
+    const postsList = document.getElementById('postsList');
+    const loader = document.getElementById('loader');
+
+    // Profile elements
+    const profileImage = document.getElementById('profileImage');
+    const profileName = document.getElementById('profileName');
+    const profileDetails = document.getElementById('profileDetails');
+
+    // New post form elements
+    const newPostContent = document.getElementById('newPostContent');
+    const postFormButtons = document.getElementById('postFormButtons');
+    const submitPostBtn = document.getElementById('submitPostBtn');
+    const cancelPostBtn = document.getElementById('cancelPostBtn');
+
+    // Notifications
+    const notificationIcon = document.getElementById('notificationIcon');
+    const notificationCount = document.getElementById('notificationCount');
+
+    notificationIcon.addEventListener('click', () => {
+      alert("You have " + notificationCount.innerText + " notifications!");
+    });
+
+    // Settings toggle
+    const settingsLink = document.getElementById('settingsLink');
+    const settingsSubmenu = document.getElementById('settingsSubmenu');
+    const notificationsSwitch = document.getElementById('notificationsSwitch');
+
+    settingsLink.addEventListener('click', () => {
+      settingsSubmenu.style.display =
+        settingsSubmenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    notificationsSwitch.addEventListener('change', () => {
+      if (notificationsSwitch.checked) {
+        alert("Notifications turned ON");
+      } else {
+        alert("Notifications turned OFF");
+      }
+    });
+
+    let posts = [], users = {}, commentsByPost = {}, page = 0, perPage = 10, loading = false, allLoaded = false;
+
+    async function fetchUsers() {
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/users');
+        const data = await res.json();
+        data.forEach(u => users[u.id] = u);
+
+        // Show first user profile info (for demo)
+        const user = users[1];
+        if (user) {
+          profileName.textContent = user.name;
+          // profileDetails.innerHTML = `
+          //               <div><strong>Email:</strong> <a href="mailto:${user.email}">${user.email}</a></div>
+          //               <div><strong>Phone:</strong> <a href="tel:${user.phone}">${user.phone}</a></div>
+          //               <div><strong>Website:</strong> <a href="http://${user.website}" target="_blank">${user.website}</a></div>
+          // `;
+          profileImage.src = `https://i.pravatar.cc/150?img=${user.id}`;
+          profileImage.alt = user.name;
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        profileName.textContent = "Error loading profile";
+      }
+    }
+
+    function randomDate(start, end) {
+      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    }
+
+    function getInitials(name) {
+      const parts = name.split(' ');
+      return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Fetch comments for a list of post IDs
+    async function fetchCommentsForPosts(postIds) {
+      const promises = postIds.map(id =>
+        fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
+          .then(res => res.json())
+          .then(data => commentsByPost[id] = data)
+      );
+      await Promise.all(promises);
+    }
+
+    async function fetchPosts() {
+      if (loading || allLoaded) return;
+      loading = true;
+      loader.style.display = 'block';
+
+      try {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_start=${page * perPage}&_limit=${perPage}`);
+        const data = await res.json();
+        if (!data.length) {
+          allLoaded = true;
+          loading = false;
+          loader.style.display = 'none';
+          return;
+        }
+        data.forEach(p => p.uploadDate = randomDate(new Date(2022, 0, 1), new Date()));
+        posts = posts.concat(data);
+        posts.sort((a, b) => b.uploadDate - a.uploadDate);
+        page++;
+
+        // Fetch comments for the newly fetched posts
+        const newPostIds = data.map(p => p.id);
+        await fetchCommentsForPosts(newPostIds);
+
+        renderPosts();
+        loading = false;
+        loader.style.display = allLoaded ? 'none' : 'block';
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        loading = false;
+        loader.style.display = 'none';
+      }
+    }
+
+    function createCard(p) {
+      const user = users[p.userId] || { name: 'User' };
+      const initials = getInitials(user.name);
+      const dateStr = p.uploadDate.toLocaleDateString();
+
+      const comments = commentsByPost[p.id] || [];
+
+      let commentsHtml = '';
+      if (comments.length) {
+        commentsHtml = comments.slice(0, 2).map(c => `
+                    <div class="comment">
+                        <strong>${escapeHtml(c.name)}:</strong> ${escapeHtml(c.body)}
+                    </div>
+                `).join('');
+      }
+
+      const card = document.createElement('div');
+      card.className = 'post-card';
+      card.innerHTML = `
+                <div class="post-header d-flex align-items-center mb-3">
+                    <div class="post-avatar rounded-circle text-white d-flex justify-content-center align-items-center"
+                        style="width: 50px; height: 50px; font-weight: 700; font-size: 1.25rem; user-select:none;">
+                        ${initials}
+                    </div>
+                    <div class="post-user-info ms-3">
+                        <h6 class="mb-0">${user.name}</h6>
+                        <small class="text-muted">${dateStr}</small>
+                    </div>
+                </div>
+                <div class="post-content mb-3">${escapeHtml(p.body)}</div>
+                <div class="post-comments">${commentsHtml}</div>
+                <div class="comment-input-container" style="display:none;">
+                    <textarea class="form-control mb-2" rows="2" placeholder="Write a comment..."></textarea>
+                    <button class="btn btn-primary btn-sm">Submit</button>
+                    <button class="btn btn-secondary btn-sm ms-2">Cancel</button>
+                </div>
+                <div class="post-actions mt-3">
+                    <button class="like-btn btn btn-sm btn-outline-danger">
+                        <i class="fas fa-heart"></i> Like
+                    </button>
+                    <button class="comment-btn btn btn-sm btn-outline-primary ms-2">
+                        <i class="fas fa-comment"></i> Comment
+                    </button>
+                </div>
+            `;
+
+      // Like button toggle
+      card.querySelector('.like-btn').onclick = e => e.currentTarget.classList.toggle('liked');
+
+      // Comment button click - toggle comment input visibility
+      const commentBtn = card.querySelector('.comment-btn');
+      const commentInputContainer = card.querySelector('.comment-input-container');
+      const textarea = commentInputContainer.querySelector('textarea');
+      const submitBtn = commentInputContainer.querySelector('button.btn-primary');
+      const cancelBtn = commentInputContainer.querySelector('button.btn-secondary');
+      const commentsDiv = card.querySelector('.post-comments');
+
+      commentBtn.onclick = () => {
+        commentInputContainer.style.display = commentInputContainer.style.display === 'none' ? 'block' : 'none';
+        if (commentInputContainer.style.display === 'block') {
+          textarea.focus();
+        }
+      };
+
+      // Cancel button hides the input
+      cancelBtn.onclick = () => {
+        textarea.value = '';
+        commentInputContainer.style.display = 'none';
+      };
+
+      // Submit button adds comment
+      submitBtn.onclick = () => {
+        const commentText = textarea.value.trim();
+        if (!commentText) {
+          alert('Please enter a comment');
+          textarea.focus();
+          return;
+        }
+
+        // Add comment to commentsByPost locally
+        const newComment = {
+          postId: p.id,
+          id: Date.now(),
+          name: "You",
+          body: commentText,
+        };
+
+        if (!commentsByPost[p.id]) commentsByPost[p.id] = [];
+        commentsByPost[p.id].push(newComment);
+
+        // Update commentsDiv to show updated comments (limit to last 2)
+        const updatedComments = commentsByPost[p.id].slice(-2);
+        commentsDiv.innerHTML = updatedComments.map(c => `
+                    <div class="comment">
+                        <strong>${escapeHtml(c.name)}:</strong> ${escapeHtml(c.body)}
+                    </div>
+                `).join('');
+
+        // Clear and hide input
+        textarea.value = '';
+        commentInputContainer.style.display = 'none';
+      };
+
+      return card;
+    }
+
+    function renderPosts() {
+      postsList.innerHTML = '';
+      posts.forEach(p => postsList.appendChild(createCard(p)));
+    }
+
+    // Scroll fetch for infinite loading
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) fetchPosts();
+    });
+
+    // New post form handlers
+    newPostContent.addEventListener('focus', () => {
+      newPostContent.rows = 3;
+      postFormButtons.style.display = 'flex';
+    });
+
+    newPostContent.addEventListener('input', () => {
+      // Auto-resize textarea
+      newPostContent.style.height = 'auto';
+      newPostContent.style.height = newPostContent.scrollHeight + 'px';
+    });
+
+    cancelPostBtn.onclick = () => {
+      newPostContent.value = '';
+      newPostContent.rows = 1;
+      newPostContent.style.height = 'auto';
+      postFormButtons.style.display = 'none';
+      newPostContent.blur();
+    };
+
+    submitPostBtn.onclick = () => {
+      const content = newPostContent.value.trim();
+      if (!content) {
+        alert('Please enter some content for the post.');
+        newPostContent.focus();
+        return;
+      }
+
+      const newPost = {
+        userId: 1,
+        id: Date.now(),
+        body: content,
+        uploadDate: new Date()
+      };
+
+      posts.unshift(newPost);
+      commentsByPost[newPost.id] = [];
+      renderPosts();
+
+      newPostContent.value = '';
+      newPostContent.rows = 1;
+      newPostContent.style.height = 'auto';
+      postFormButtons.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Initialize
+    (async () => {
+      await fetchUsers();
+      await fetchPosts();
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Consilio Network - Albums</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" />
+
+    <style>
+        /* CSS is namespaced to prevent conflicts */
+        .album-page {
+            font-family: 'Forum', sans-serif;
+        }
+
+        .forum-regular {
+            font-family: "Forum", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .album-page .h2,
+        .album-page .profile-name,
+        .album-page .photo-card h6 {
+            font-family: 'Forum', sans-serif;
+        }
+
+        /* Custom font for ConsilioBook */
+        .album-page .navbar-brand {
+            font-family: 'Pacifico';
+        }
+
+        .album-page .wrapper {
+            display: flex;
+        }
+
+        .album-page .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            border-right: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .album-page .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .album-page .profile-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .album-page .profile-info {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .album-page .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            color: #495057;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .album-page .sidebar-links a i {
+            margin-right: 0.75rem;
+            color: #888;
+        }
+
+        .album-page .sidebar-links a:hover {
+            background-color: #e9ecef;
+            color: #000;
+        }
+
+        .album-page .sidebar-links .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .album-page .sidebar-links .active i {
+            color: #fff;
+        }
+
+        /* Settings submenu */
+        .album-page .settings-submenu {
+            display: none;
+            margin-left: 25px;
+            margin-top: 5px;
+            flex-direction: column;
+        }
+
+        .album-page .settings-submenu a,
+        .album-page .settings-submenu .notification-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #333;
+            font-size: 0.9rem;
+            padding: 5px 0;
+            text-decoration: none;
+        }
+
+        .album-page .settings-submenu a:hover {
+            color: #007bff;
+        }
+
+        /* Album Card Styles */
+        .album-page .photo-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .album-page .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .album-page .photo-card .photo-overlay {
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .album-page .photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        /* Title box */
+        .album-page .title-box {
+            background: #ffffff;
+            padding: 2.5rem 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Notification icon badge */
+        .album-page .notification-icon {
+            position: relative;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .album-page .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: red;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 5px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body class="album-page bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="text-center mb-4">
+                <h4 class="fw-bold" style="font-family: 'Pacifico'; color: #007bff;">
+                    <i class="fas fa-book me-2"></i>ConsilioBook
+                </h4>
+            </div>
+            <div class="d-flex align-items-center">
+                <!-- Notification Icon -->
+                <div class="notification-icon me-3" id="notificationIcon">
+                    <i class="fas fa-bell text-primary"></i>
+                    <span class="notification-badge" id="notificationCount">3</span>
+                </div>
+                <button type="button" class="btn btn-outline-primary me-2" data-mdb-ripple-color="dark">
+                    <i class="fas fa-plus me-1"></i> Add Album
+                </button>
+                <a class="btn btn-danger" href="#" role="button" data-mdb-ripple-color="light">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <aside class="sidebar" id="profileSidebar">
+            <img src="" alt="User Avatar" class="profile-image" id="profileImage" />
+            <div class="profile-name" id="profileName">Loading...</div>
+
+            <nav class="sidebar-links">
+                <a href="index.html"><i class="fas fa-house"></i> Home</a>
+                <a href="post.html"><i class="fas fa-newspaper"></i> Posts</a>
+                <a href="album.html" class="active"><i class="fas fa-image"></i> Albums</a>
+                <a href="#picturesPage"><i class="fas fa-camera"></i> Pictures</a>
+
+                <!-- Settings main link -->
+                <a href="javascript:void(0);" id="settingsLink"><i class="fas fa-cog"></i> Settings</a>
+                <!-- Settings submenu -->
+                <div class="settings-submenu" id="settingsSubmenu">
+                    <div class="notification-toggle">
+                        <span><i class="fas fa-bell"></i> Notifications</span>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="notificationsSwitch" checked>
+                        </div>
+                    </div>
+                    <a href="#changePassword"><i class="fas fa-key"></i> Change Password</a>
+                    <a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="container-fluid py-5" style="max-width: 1400px;">
+            <div class="text-center mb-5">
+                <div class="title-box">
+                    <h1 class="h2 fw-bold text-dark mb-2">My Albums</h1>
+                    <p class="text-muted lead">View your memories and personal collections.</p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-lg-3 col-md-6">
+                    <a href="album-detail.html" class="text-decoration-none" data-mdb-ripple-init>
+                        <div class="card border-0 shadow-sm photo-card h-100 rounded-3 overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=300&fit=crop"
+                                    class="card-img-top" style="height: 250px; object-fit: cover;" alt="Beach Vibes">
+                                <div
+                                    class="position-absolute bottom-0 start-0 end-0 p-3 photo-overlay d-flex align-items-end">
+                                    <h6 class="text-white fw-semibold mb-0">Beach Vibes</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="album-detail.html" class="text-decoration-none" data-mdb-ripple-init>
+                        <div class="card border-0 shadow-sm photo-card h-100 rounded-3 overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=300&fit=crop"
+                                    class="card-img-top" style="height: 250px; object-fit: cover;"
+                                    alt="Mountain Escapes">
+                                <div
+                                    class="position-absolute bottom-0 start-0 end-0 p-3 photo-overlay d-flex align-items-end">
+                                    <h6 class="text-white fw-semibold mb-0">Mountain Escapes</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="album-detail.html" class="text-decoration-none" data-mdb-ripple-init>
+                        <div class="card border-0 shadow-sm photo-card h-100 rounded-3 overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=300&fit=crop"
+                                    class="card-img-top" style="height: 250px; object-fit: cover;" alt="City Nights">
+                                <div
+                                    class="position-absolute bottom-0 start-0 end-0 p-3 photo-overlay d-flex align-items-end">
+                                    <h6 class="text-white fw-semibold mb-0">City Nights</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="album-detail.html" class="text-decoration-none" data-mdb-ripple-init>
+                        <div class="card border-0 shadow-sm photo-card h-100 rounded-3 overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&h=300&fit=crop"
+                                    class="card-img-top" style="height: 250px; object-fit: cover;" alt="Foodie Life">
+                                <div
+                                    class="position-absolute bottom-0 start-0 end-0 p-3 photo-overlay d-flex align-items-end">
+                                    <h6 class="text-white fw-semibold mb-0">Foodie Life</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+    <script>
+        // Profile fetching and MDB initialization
+        document.addEventListener("DOMContentLoaded", function () {
+            // MDB initialization
+            new mdb.Button(document.getElementById('profileSidebar'));
+            new mdb.Ripple(document.querySelector('.btn-outline-primary'));
+
+            const profileImage = document.getElementById('profileImage');
+            const profileName = document.getElementById('profileName');
+
+            // Notifications
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationCount = document.getElementById('notificationCount');
+
+            notificationIcon.addEventListener('click', () => {
+                alert("You have " + notificationCount.innerText + " notifications!");
+            });
+
+            // Settings toggle
+            const settingsLink = document.getElementById('settingsLink');
+            const settingsSubmenu = document.getElementById('settingsSubmenu');
+            const notificationsSwitch = document.getElementById('notificationsSwitch');
+
+            settingsLink.addEventListener('click', () => {
+                settingsSubmenu.style.display =
+                    settingsSubmenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            notificationsSwitch.addEventListener('change', () => {
+                if (notificationsSwitch.checked) {
+                    alert("Notifications turned ON");
+                } else {
+                    alert("Notifications turned OFF");
+                }
+            });
+
+            async function fetchUserProfile() {
+                try {
+                    const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
+                    const user = await res.json();
+
+                    profileName.textContent = user.name;
+                    profileImage.src = `https://i.pravatar.cc/150?img=${user.id}`;
+                    profileImage.alt = user.name;
+                } catch (error) {
+                    console.error('Error fetching user profile:', error);
+                    profileName.textContent = "Error loading profile";
+                }
+            }
+
+            fetchUserProfile();
+        });
+    </script>
+</body>
+
+</html>
